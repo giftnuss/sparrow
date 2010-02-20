@@ -23,7 +23,11 @@ IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     ENDIF()
 ENDIF()
 
+set( LIB_MODE STATIC )
+
 ADD_SUBDIRECTORY(src)
+
+
 
 IF(WITH_TESTS)
     MESSAGE(STATUS "Enable sparrow tap tests to build - done")

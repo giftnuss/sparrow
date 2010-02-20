@@ -29,10 +29,10 @@ ADD_SUBDIRECTORY(src)
 
 
 
-IF(WITH_TESTS)
+# IF(WITH_TESTS)
     MESSAGE(STATUS "Enable sparrow tap tests to build - done")
     ENABLE_TESTING()
     
     ADD_SUBDIRECTORY(t)
-ENDIF()
+# ENDIF()
 

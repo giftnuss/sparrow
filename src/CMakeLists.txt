@@ -1,11 +1,18 @@
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-SET(SPARROW_LIB libsparrow)
+SET(SPARROW_LIB sparrow)
 
 SET(SPARROW_SRCS
     sparrow/tap_suite.cpp
     sparrow/test_run.cpp
+    sparrow/tap_base.cpp
+    sparrow/tap_more_1.cpp
 )
 
 add_library( ${SPARROW_LIB} ${LIB_MODE} ${SPARROW_SRCS} )
+
+install(
+   TARGETS ${SPARROW_LIB}
+   DESTINATION lib
+)

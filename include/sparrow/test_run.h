@@ -3,6 +3,8 @@
 #ifndef _SPARROW_TEST_RUN_
 #define _SPARROW_TEST_RUN_
 
+#include <sparrow/tap_suite.h>
+
 namespace sparrow {
 
 class test_run

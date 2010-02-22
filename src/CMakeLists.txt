@@ -12,6 +12,14 @@ SET(SPARROW_SRCS
 
 add_library( ${SPARROW_LIB} ${LIB_MODE} ${SPARROW_SRCS} )
 
+SET(DBIX_LIB dbix)
+
+SET(DBIX_SRCS
+   dbix/value.cpp
+)
+
+add_library( ${DBIX_LIB} ${LIB_MODE} ${DBIX_SRCS} )
+
 install(
    TARGETS ${SPARROW_LIB}
    DESTINATION lib

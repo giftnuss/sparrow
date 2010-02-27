@@ -16,6 +16,9 @@ SET(DBIX_LIB dbix)
 
 SET(DBIX_SRCS
    dbix/value.cpp
+   dbix/types.cpp
+   dbix/types/type.cpp
+   dbix/types/text.cpp
 )
 
 add_library( ${DBIX_LIB} ${LIB_MODE} ${DBIX_SRCS} )

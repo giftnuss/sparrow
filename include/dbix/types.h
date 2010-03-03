@@ -23,12 +23,14 @@ class type_container
   type_container();
   virtual ~type_container();
   dbix::types::text& text(const std::string& s = "default");
+  dbix::types::text& integer(const std::string& s = "integer");
+  dbix::types::text& boolean(const std::string& s = "boolean");
  private:
   std::map<std::string,text_ptr> text_variants;
-  
 };
 
 }
 
 #endif
+
 

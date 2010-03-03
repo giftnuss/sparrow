@@ -28,12 +28,10 @@ type_container::text(const string& key)
   if(key == "default") {
     return is::text();
   }
-  map<string,text_ptr>::iterator
-    iter = text_variants.find(key);
+  map<string,text_ptr>::iterator iter = text_variants.find(key);
 
   if(iter == text_variants.end()) {
     pair<map<string,text_ptr>::iterator,bool> p;
-    // destruction of v should not destroy object
     text_ptr* tp = new text_ptr(new dbix::types::text(is::text()));
     map<string,text_ptr>::value_type* v =
       new map<string,text_ptr>::value_type(key,*tp);
@@ -42,5 +40,18 @@ type_container::text(const string& key)
   }
   return *((*iter).second);
 }
+
+// dummy
+dbix::types::text&
+type_container::integer(const string& s)
+{
+  return text(s);
+}
+dbix::types::text&
+type_container::boolean(const string& s)
+{
+  return text(s);
+}
+
 
 

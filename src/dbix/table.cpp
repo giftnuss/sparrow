@@ -21,36 +21,47 @@ table::name() const
 table&
 table::has(column& c) throw (invalid_argument)
 {
-  map<string,column>::value_type* v =
-    new map<string,column>::value_type(c.name(),c);
-
-  pair<map<string,column>::iterator,bool> p = columns.insert(*v);
-  if(!p.second) {
+  if(has_column(c.name())) {
     throw invalid_argument(
       "Column name '" + c.name() + "' already known in table '" + name_ + "'.");
   }
+  columns.push_back(c);
+  map<string,int>::value_type* v =
+    new map<string,int>::value_type(c.name(),columns.size()-1);
+
+  pair<map<string,int>::iterator,bool> p = columnmap.insert(*v);
   return *this;
 }
 
 bool
 table::has_column(const string& n) const
 {
-  map<string,dbix::column>::const_iterator iter = columns.find(n);
-  return iter != columns.end();
+  map<string,int>::const_iterator iter = columnmap.find(n);
+  return iter != columnmap.end();
 }
 
 column&
 table::get_column(const string& n) throw (invalid_argument)
 {
   try {
-    return columns.at(n);
+    return columns.at(columnmap.at(n));
   }
   catch(out_of_range& e) {
     throw invalid_argument("Unknown column name '" + n + "' in table '" + name_ + "'.");
   }
 }
 
+column&
+table::get_column(vector<column_type>::size_type s) throw (out_of_range)
+{
+  return columns.at(s);
+}
 
+vector<column_type>::size_type
+table::column_count() const
+{
+  return columns.size();
+}
 
 
 

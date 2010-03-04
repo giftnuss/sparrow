@@ -15,6 +15,9 @@ add_library( ${SPARROW_LIB} ${LIB_MODE} ${SPARROW_SRCS} )
 SET(DBIX_LIB dbix)
 
 SET(DBIX_SRCS
+   dbix/column.cpp
+   dbix/record.cpp
+   dbix/table.cpp
    dbix/value.cpp
    dbix/types.cpp
    dbix/types/type.cpp

@@ -7,10 +7,11 @@
 #include <stdexcept>
 #include <vector>
 #include <dbix/column.h>
+#include <sparrow/coat/sptr.h>
 
 namespace dbix {
 
-  typedef column column_type;
+  typedef sparrow::coat::sptr<column> column_type;
 
     class table {
     public:

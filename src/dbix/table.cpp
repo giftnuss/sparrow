@@ -25,7 +25,8 @@ table::has(column& c) throw (invalid_argument)
     throw invalid_argument(
       "Column name '" + c.name() + "' already known in table '" + name_ + "'.");
   }
-  columns.push_back(c);
+  column_type cc(&c);
+  columns.push_back(cc);
   map<string,int>::value_type* v =
     new map<string,int>::value_type(c.name(),columns.size()-1);
 
@@ -44,7 +45,7 @@ column&
 table::get_column(const string& n) throw (invalid_argument)
 {
   try {
-    return columns.at(columnmap.at(n));
+    return *(columns.at(columnmap.at(n)));
   }
   catch(out_of_range& e) {
     throw invalid_argument("Unknown column name '" + n + "' in table '" + name_ + "'.");
@@ -54,7 +55,7 @@ table::get_column(const string& n) throw (invalid_argument)
 column&
 table::get_column(vector<column_type>::size_type s) throw (out_of_range)
 {
-  return columns.at(s);
+  return *(columns.at(s));
 }
 
 vector<column_type>::size_type

@@ -29,6 +29,12 @@ value::value(const string& str)
 
 value::~value()
 {
+  destroy();
+}
+
+inline void
+value::destroy()
+{
   if(destruction) {
     (this->*destruction)();
   }
@@ -52,6 +58,24 @@ value::destroy_string()
   delete static_cast<string *>(data);
 }
 
+value&
+value::is(const int& v)
+{
+  destroy();
+  data = new int(v);
+  destruction = &value::destroy_int;
+  return *this;
+}
+
+value&
+value::is(const double& v)
+{
+  destroy();  
+  data = new double(v);
+  destruction = &value::destroy_double;
+  return *this;
+}
+
 double&
 value::to_double()
 {
@@ -70,4 +94,9 @@ value::to_string()
   return *(static_cast<string*>(data));
 }
 
+bool
+value::is_null() const
+{
+  return bool(data);
+}
 

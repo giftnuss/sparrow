@@ -9,21 +9,25 @@ namespace dbix {
 
 class value
 {
- private:
-  value();
  public:
-  value(const double&);
-  value(const int&);
+  value();
+  explicit value(const double&);
+  explicit value(const int&);
   value(const std::string&);
   virtual ~value();
+ public:
+  value& is(const double&);
+  value& is(const int&);
  public:
   double& to_double();
   int& to_int();
   std::string& to_string();
+  bool is_null() const;
  private:
   void* data;
   void (value::*destruction)();
  private:
+  void destroy();
   void destroy_double();
   void destroy_int();
   void destroy_string();

@@ -76,6 +76,15 @@ value::is(const double& v)
   return *this;
 }
 
+value&
+value::is(const string& v)
+{
+  destroy();  
+  data = new string(v);
+  destruction = &value::destroy_string;
+  return *this;
+}
+
 double&
 value::to_double()
 {

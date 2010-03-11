@@ -18,6 +18,7 @@ class value
  public:
   value& is(const double&);
   value& is(const int&);
+  value& is(const std::string&);
  public:
   double& to_double();
   int& to_int();

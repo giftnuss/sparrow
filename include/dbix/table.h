@@ -12,6 +12,7 @@
 namespace dbix {
 
   typedef sparrow::coat::sptr<column> column_type;
+  class record;
 
     class table {
     public:
@@ -25,8 +26,16 @@ namespace dbix {
           throw (std::invalid_argument);
       dbix::column& get_column(std::vector<dbix::column_type>::size_type)
           throw (std::out_of_range);
+      dbix::column& get_column(std::vector<dbix::column_type>::size_type)
+	const throw (std::out_of_range);
+      int column_pos(const std::string&) const
+	  throw (std::invalid_argument);
       std::vector<dbix::column_type>::size_type column_count() const;
 
+      dbix::record& row();
+      table& insert(dbix::record&);
+      table& update(dbix::record&);
+      table& erase(dbix::record&);
     private:
       std::string name_;
       std::map<std::string,int> columnmap;

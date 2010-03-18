@@ -11,13 +11,16 @@ class value
 {
  public:
   value();
+  explicit value(const bool&);
   explicit value(const double&);
   explicit value(const int&);
+  explicit value(const long int&);
   value(const std::string&);
   virtual ~value();
  public:
+  value& is(const bool&);
   value& is(const double&);
-  value& is(const int&);
+  value& is(const long int&);
   value& is(const std::string&);
  public:
   double& to_double();
@@ -32,6 +35,7 @@ class value
   void destroy_double();
   void destroy_int();
   void destroy_string();
+  void destroy_bool();
 };
 
 }

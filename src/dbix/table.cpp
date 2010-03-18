@@ -1,6 +1,6 @@
 
-
 #include <dbix/table.h>
+#include <dbix/record.h>
 
 using namespace std;
 using namespace dbix;
@@ -58,12 +58,40 @@ table::get_column(vector<column_type>::size_type s) throw (out_of_range)
   return *(columns.at(s));
 }
 
+column&
+table::get_column(vector<column_type>::size_type s) const throw (out_of_range)
+{
+  return *(columns.at(s));
+}
+
+int
+table::column_pos(const string& n) const throw (invalid_argument)
+{
+  try {
+    return columnmap.at(n);
+  }
+  catch(out_of_range& e) {
+    throw invalid_argument("Unknown column name '" + n + "' in table '" + name_ + "'.");
+  }
+}
+
 vector<column_type>::size_type
 table::column_count() const
 {
   return columns.size();
 }
 
+record&
+table::row()
+{
+  return *(new record(*this));
+}
 
+table&
+table::insert(record& r)
+{
+
+  return *this;
+}
 
 

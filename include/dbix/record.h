@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <dbix/column.h>
 #include <dbix/table.h>
 #include <dbix/value.h>
 
@@ -16,21 +17,11 @@ class record
   friend class dbix::table;
   record(const dbix::table&);
  public:
-  template <typename T>
-    record& with(const std::string&, T);
+  dbix::assignment& with(const std::string&);
  private:
   const dbix::table* tableptr;
   std::vector<dbix::value> values;
 };
-
-
-template <typename T> 
-record&
-  record::with(const std::string& key,T val)
-{
-  values.at(tableptr->column_pos(key)).is(val);
-  return *this;
-}
 
 }
 

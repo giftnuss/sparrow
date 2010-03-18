@@ -9,6 +9,12 @@ value::value()
 {
 }
 
+value::value(const bool& b)
+{
+  data = new bool(b);
+  destruction = &value::destroy_bool;
+}
+
 value::value(const double& dbl)
 {
   data = new double(dbl);
@@ -17,7 +23,13 @@ value::value(const double& dbl)
 
 value::value(const int& i)
 {
-  data = new int(i);
+  data = new long int(i);
+  destruction = &value::destroy_int;
+}
+
+value::value(const long int& i)
+{
+  data = new long int(i);
   destruction = &value::destroy_int;
 }
 
@@ -49,7 +61,7 @@ value::destroy_double()
 void
 value::destroy_int()
 {
-  delete static_cast<int *>(data);
+  delete static_cast<long int *>(data);
 }
 
 void
@@ -58,11 +70,26 @@ value::destroy_string()
   delete static_cast<string *>(data);
 }
 
+void
+value::destroy_bool()
+{
+  delete static_cast<bool *>(data);
+}
+
 value&
-value::is(const int& v)
+value::is(const bool& v)
 {
   destroy();
-  data = new int(v);
+  data = new bool(v);
+  destruction = &value::destroy_bool;
+  return *this;
+}
+
+value&
+value::is(const long int& v)
+{
+  destroy();
+  data = new long int(v);
   destruction = &value::destroy_int;
   return *this;
 }

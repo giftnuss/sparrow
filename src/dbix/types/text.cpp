@@ -26,3 +26,8 @@ text::new_id()
   return ++id;
 }
 
+void
+text::valid_value(const std::string& s, dbix::value* v)
+{
+
+}

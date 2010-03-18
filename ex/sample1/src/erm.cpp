@@ -27,8 +27,8 @@ erm::erm()
     .has(*(new column("default_optionality_indicator",tc.integer())));
 
   entities
-    .insert(entity().row().with("name","entity"))
-    .insert(entity().row().with("name","attribute"))
-    .insert(entity().row().with("name","relationship_role"));
+    .insert(entity().row().with("name").is("entity"))
+    .insert(entity().row().with("name").is("attribute"))
+    .insert(entity().row().with("name").is("relationship_role"));
 }
 

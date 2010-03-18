@@ -24,6 +24,7 @@ SET(DBIX_SRCS
    dbix/types/text.cpp
    dbix/types/integer.cpp
    dbix/types/number.cpp
+   dbix/types/boolean.cpp
 )
 
 add_library( ${DBIX_LIB} ${LIB_MODE} ${DBIX_SRCS} )

@@ -17,7 +17,7 @@ test_run::~test_run()
 
 void test_run::plan()
 {
-   std::cout << std::endl << "1.." << suite->test_count() << std::endl;      
+   std::cout << "1.." << suite->test_count() << std::endl;      
 }
 
 int test_run::run()

@@ -1,0 +1,5 @@
+t/dbix_dbx_db
+t/dbix_table_test
+t/dbix_types_test
+t/dbix_value_test
+t/tap_test

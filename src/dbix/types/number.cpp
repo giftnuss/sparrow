@@ -1,5 +1,6 @@
 
 #include <cstdlib>
+#include <stdexcept>
 #include <cerrno>
 #include <cmath>
 #include <string>

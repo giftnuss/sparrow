@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cerrno>
 #include <string>
+#include <stdexcept>
 #include <dbix/value.h>
 #include <dbix/types/integer.h>
 

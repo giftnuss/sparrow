@@ -15,7 +15,8 @@ class value
   explicit value(const double&);
   explicit value(const int&);
   explicit value(const long int&);
-  value(const std::string&);
+  explicit value(const char*);
+  explicit value(const std::string&);
   virtual ~value();
  public:
   value& is(const bool&);
@@ -24,8 +25,9 @@ class value
   value& is(const std::string&);
  public:
   double& to_double();
-  int& to_int();
+  long int& to_int();
   std::string& to_string();
+  bool& to_bool();
   bool is_null() const;
  private:
   void* data;

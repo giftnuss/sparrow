@@ -13,6 +13,7 @@ class value_test : public tap_base<value_test>
   void double_test();
   void int_test();
   void string_test();
+  void boolean_test();
 };
 
 void
@@ -21,6 +22,7 @@ value_test::init()
   add(2,&value_test::double_test);
   add(2,&value_test::int_test);
   add(2,&value_test::string_test);
+  add(2,&value_test::boolean_test);
 }
 
 void
@@ -48,6 +50,15 @@ value_test::string_test()
   ok(v.to_string() == "123","string is ok");
   v.to_string() += "abc";
   ok(v.to_string() == "123abc","modifying string via reference is ok");
+}
+
+void
+value_test::boolean_test()
+{
+  value v(true);
+  ok(v.to_bool(),"a true value");
+  v.to_bool() = false;
+  ok(!v.to_bool(),"boolean value modyfied");
 }
 
 int main(int argc, char** argv)

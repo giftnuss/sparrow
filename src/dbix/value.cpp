@@ -33,6 +33,12 @@ value::value(const long int& i)
   destruction = &value::destroy_int;
 }
 
+value::value(const char* str)
+{
+  data = new string(str);
+  destruction = &value::destroy_string;
+}
+
 value::value(const string& str)
 {
   data = new string(str);
@@ -118,16 +124,22 @@ value::to_double()
   return *(static_cast<double*>(data));
 }
 
-int&
+long int&
 value::to_int()
 {
-  return *(static_cast<int*>(data));
+  return *(static_cast<long int*>(data));
 }
 
 string&
 value::to_string()
 {
   return *(static_cast<string*>(data));
+}
+
+bool&
+value::to_bool()
+{
+  return *(static_cast<bool*>(data));
 }
 
 bool

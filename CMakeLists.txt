@@ -41,3 +41,5 @@ ADD_SUBDIRECTORY(ex)
 ADD_CUSTOM_TARGET(love
     COMMAND ${CMAKE_COMMAND} -E echo "not war!"
 )
+
+ADD_SUBDIRECTORY(thirdparty)

@@ -8,7 +8,8 @@ add_executable( ermsample
     main.cpp 
     src/erm.cpp
 )
+add_dependencies( ermsample LIB_dbix )
+   
 target_link_libraries( ermsample 
-    ${CMAKE_SOURCE_DIR}/src/libsparrow.a
-    ${CMAKE_SOURCE_DIR}/src/libdbix.a
+    ${LIB_dbix_FILENAME}
 )

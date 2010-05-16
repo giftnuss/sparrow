@@ -1,7 +1,7 @@
 
 project("sparrow" CXX)
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 SET(SPARROW_TAP_TEST sparrow_test)
 
@@ -25,9 +25,32 @@ ENDIF()
 
 set( LIB_MODE STATIC )
 
+SET(SPARROW_LIBRARIES ${CMAKE_SOURCE_DIR}/lib)
+ADD_CUSTOM_TARGET(
+    SPARROW_LIBRARIES
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${SPARROW_LIBRARIES}
+)
+
+MACRO(set_library_name name)
+    SET(LIB_${name}_FILE "lib${name}.a")
+    SET(LIB_${name}_FILENAME  ${SPARROW_LIBRARIES}/${LIB_${name}_FILE})
+ENDMACRO()
+
+MACRO(copy_sparrow_library name)
+    set_library_name(${name})
+    ADD_CUSTOM_TARGET(
+        LIB_${name}
+        COMMAND ${CMAKE_COMMAND} -E copy 
+            ${CMAKE_BINARY_DIR}/src/${LIB_${name}_FILE}
+            ${SPARROW_LIBRARIES}
+        DEPENDS ${SPARROW_LIBRARIES} ${name}
+    )
+ENDMACRO()
+
+copy_sparrow_library(sparrow)
+copy_sparrow_library(dbix)
+
 ADD_SUBDIRECTORY(src)
-
-
 
 # IF(WITH_TESTS)
     MESSAGE(STATUS "Enable sparrow tap tests to build - done")

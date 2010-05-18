@@ -45,6 +45,9 @@ MACRO(copy_sparrow_library name)
             ${SPARROW_LIBRARIES}
         DEPENDS ${SPARROW_LIBRARIES} ${name}
     )
+    ADD_DEPENDENCIES(
+        LIB_${name} SPARROW_LIBRARIES
+    )
 ENDMACRO()
 
 copy_sparrow_library(sparrow)

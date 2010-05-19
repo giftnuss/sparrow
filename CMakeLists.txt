@@ -10,6 +10,9 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 # Path to additional CMake modules
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+# Loading my first cmake module
+INCLUDE(candid)
+
 SET(BUILD_PEDANTIC TRUE CACHE BOOL
     "Choose compilation in pedantic or relaxed mode")
 
@@ -32,7 +35,7 @@ ADD_CUSTOM_TARGET(
 )
 
 MACRO(set_library_name name)
-    SET(LIB_${name}_FILE "lib${name}.a")
+    set_static_library_name(LIB_${name}_FILE ${name})
     SET(LIB_${name}_FILENAME  ${SPARROW_LIBRARIES}/${LIB_${name}_FILE})
 ENDMACRO()
 

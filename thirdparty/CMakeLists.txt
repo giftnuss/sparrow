@@ -7,39 +7,20 @@ ADD_CUSTOM_TARGET(
   COMMAND ${CMAKE_COMMAND} -E make_directory ${THIRDPARTY_INCLUDES}
 )
 
-ExternalProject_Add(
-  madfish-webtoolkit
-  PREFIX webtoolkit
-  SVN_REPOSITORY http://madfish-webtoolkit.googlecode.com/svn/trunk
-  INSTALL_COMMAND ""
+SET(THIRDPARTY_ACKNOWLEDGEMENT ${CMAKE_CURRENT_SOURCE_DIR}/acknowledgement)
+ADD_CUSTOM_TARGET(
+  THIRDPARTY_ACKNOWLEDGEMENT
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${THIRDPARTY_ACKNOWLEDGEMENT}
 )
-
-SET( CORETOOLKIT_HEADERS
-    File.h
-    FileUtils.h
-    Logger.h
-    OSUtils.h
-    Socket.h
-    Stream.h
-    Thread.h
-    Util.h
-)
-
-SET( WEBTOOLKIT_HEADERS
-    Client.h
-    Http.h
-    HttpHelpers.h
-    Server.h
-    WebToolkit.h
-)
-
-ExternalProject_Get_Property(madfish-webtoolkit SOURCE_DIR)
-ExternalProject_Get_Property(madfish-webtoolkit BINARY_DIR)
 
 MACRO(copy_headers project directory listvar)
+    ExternalProject_Get_Property(
+        ${project} SOURCE_DIR
+    )
     ExternalProject_Add_Step(
         ${project} mkdir-${directory}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${THIRDPARTY_INCLUDES}/${directory}
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+            ${THIRDPARTY_INCLUDES}/${directory}
         DEPENDEES install
     )
     FOREACH(header ${${listvar}}) 
@@ -53,13 +34,10 @@ MACRO(copy_headers project directory listvar)
     ENDFOREACH()
 ENDMACRO()
 
-copy_headers(madfish-webtoolkit CoreToolkit CORETOOLKIT_HEADERS)
-copy_headers(madfish-webtoolkit WebToolkit WEBTOOLKIT_HEADERS)
-
-set_static_library_name(LIB_CoreToolkit_FILE CoreToolkit)
-set_static_library_name(LIB_WebToolkit_FILE WebToolkit)
-
 MACRO(copy_library project directory libname)
+    ExternalProject_Get_Property(
+        ${project} BINARY_DIR
+    )
     ExternalProject_Add_Step(
         ${project} copy-${directory}-library
         COMMAND ${CMAKE_COMMAND} -E copy
@@ -69,13 +47,23 @@ MACRO(copy_library project directory libname)
     )
 ENDMACRO()
 
-copy_library(madfish-webtoolkit CoreToolkit ${LIB_CoreToolkit_FILE})
-copy_library(madfish-webtoolkit WebToolkit ${LIB_WebToolkit_FILE})
+MACRO(copy_license project filename)
+    STRING( REGEX REPLACE "\s+" "" cleanfilename ${filename} )
+    STRING( REGEX REPLACE "/" "_" cleanfilename ${cleanfilename} )
+    ExternalProject_Get_Property(
+        ${project} SOURCE_DIR
+    )
+    ExternalProject_Add_Step(
+        ${project} copy-${project}-license-${cleanfilename}
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${SOURCE_DIR}/${filename}
+                ${THIRDPARTY_ACKNOWLEDGEMENT}/${project}-${cleanfilename}
+    )
+ENDMACRO()
 
-ADD_DEPENDENCIES(
-    madfish-webtoolkit
-        THIRDPARTY_INCLUDES
-        SPARROW_LIBRARIES
-)
+FIND_LIBRARY( WEBTOOLKIT_LIB_FOUND WebToolkit )
+FIND_FILE( WEBTOOLKIT_HEADER_FOUND WebToolkit/WebToolkit.h )
 
-
+IF( NOT WEBTOOLKIT_LIB_FOUND OR NOT WEBTOOLKIT_HEADER_FOUND )
+    INCLUDE( madfish-webtoolkit.cmake )
+ENDIF()

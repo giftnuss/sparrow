@@ -10,6 +10,18 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 # Path to additional CMake modules
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+# Path to libraries when searched
+SET( CMAKE_LIBRARY_PATH 
+    ${CMAKE_LIBRARY_PATH}
+    ${CMAKE_SOURCE_DIR}/lib
+)
+
+# paths when searching files
+SET( CMAKE_INCLUDE_PATH
+    ${CMAKE_INCLUDE_PATH}
+    ${CMAKE_SOURCE_DIR}/thirdparty/include
+)
+
 # Loading my first cmake module
 INCLUDE(candid)
 

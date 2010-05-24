@@ -1,0 +1,43 @@
+8
+
+dir
+72
+http://madfish-webtoolkit.googlecode.com/svn/trunk/FileServer/Data
+http://madfish-webtoolkit.googlecode.com/svn
+
+
+
+2009-08-12T21:28:35.980250Z
+43
+madfishtheone
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+60c4ced2-5383-11de-a3da-17e148e7a168
+
+Static
+dir
+
+FileServer.conf
+file
+
+
+
+
+2010-04-29T03:10:30.000000Z
+8be557c9983efedb5d124ff2bf8ed3b8
+2009-08-12T21:28:35.980250Z
+43
+madfishtheone
+

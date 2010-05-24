@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/67/trunk/FileServer
+END
+Main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/67/trunk/FileServer/Main.cpp
+END
+Main.h
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/60/trunk/FileServer/Main.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/67/trunk/FileServer/CMakeLists.txt
+END

@@ -26,6 +26,8 @@ set_static_library_name(LIB_libtpt_FILE tpt)
 
 copy_library(libtpt src/lib ${LIB_libtpt_FILE})
 
+copy_license( libtpt LICENSE )
+
 ADD_DEPENDENCIES(
     libtpt
         THIRDPARTY_INCLUDES

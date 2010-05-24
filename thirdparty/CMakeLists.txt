@@ -17,29 +17,31 @@ MACRO(copy_headers project directory listvar)
     ExternalProject_Get_Property(
         ${project} SOURCE_DIR
     )
+    STRING( REGEX REPLACE "^.+/" "" dirname ${directory} )
     ExternalProject_Add_Step(
-        ${project} mkdir-${directory}
+        ${project} mkdir-${dirname}
         COMMAND ${CMAKE_COMMAND} -E make_directory
-            ${THIRDPARTY_INCLUDES}/${directory}
+            ${THIRDPARTY_INCLUDES}/${dirname}
         DEPENDEES install
     )
     FOREACH(header ${${listvar}}) 
         ExternalProject_Add_Step(
-            ${project} copy-${directory}-${header}
+            ${project} copy-${dirname}-${header}
             COMMAND ${CMAKE_COMMAND} -E copy
                 ${SOURCE_DIR}/${directory}/${header}
-                ${THIRDPARTY_INCLUDES}/${directory}/
-            DEPENDEES mkdir-${directory}
+                ${THIRDPARTY_INCLUDES}/${dirname}/
+            DEPENDEES mkdir-${dirname}
         )
     ENDFOREACH()
 ENDMACRO()
 
 MACRO(copy_library project directory libname)
+    STRING( REGEX REPLACE "/" "-" cleanname ${directory} )
     ExternalProject_Get_Property(
         ${project} BINARY_DIR
     )
     ExternalProject_Add_Step(
-        ${project} copy-${directory}-library
+        ${project} copy-${cleanname}-library
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${BINARY_DIR}/${directory}/${libname}
                 ${SPARROW_LIBRARIES}
@@ -48,7 +50,7 @@ MACRO(copy_library project directory libname)
 ENDMACRO()
 
 MACRO(copy_license project filename)
-    STRING( REGEX REPLACE "\s+" "" cleanfilename ${filename} )
+    STRING( REGEX REPLACE "[ ]+" "" cleanfilename ${filename} )
     STRING( REGEX REPLACE "/" "_" cleanfilename ${cleanfilename} )
     ExternalProject_Get_Property(
         ${project} SOURCE_DIR
@@ -58,6 +60,7 @@ MACRO(copy_license project filename)
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${SOURCE_DIR}/${filename}
                 ${THIRDPARTY_ACKNOWLEDGEMENT}/${project}-${cleanfilename}
+        DEPENDEES install
     )
 ENDMACRO()
 

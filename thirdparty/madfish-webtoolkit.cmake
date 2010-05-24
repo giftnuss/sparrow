@@ -34,6 +34,8 @@ set_static_library_name(LIB_WebToolkit_FILE WebToolkit)
 copy_library(madfish-webtoolkit CoreToolkit ${LIB_CoreToolkit_FILE})
 copy_library(madfish-webtoolkit WebToolkit ${LIB_WebToolkit_FILE})
 
+copy_license( madfish-webtoolkit License.txt )
+
 ADD_DEPENDENCIES(
     madfish-webtoolkit
         THIRDPARTY_INCLUDES

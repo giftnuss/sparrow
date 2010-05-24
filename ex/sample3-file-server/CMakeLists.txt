@@ -17,3 +17,9 @@ target_link_libraries(FileServer
     CoreToolkit
     pthread
 )
+
+add_dependencies(FileServer
+    madfish-webtoolkit
+    libtpt
+)
+

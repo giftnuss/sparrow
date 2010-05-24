@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <time.h>
 #include <stdlib.h>
+#include "getopt_pp.h"
 
 using namespace std;
 using namespace CoreToolkit;

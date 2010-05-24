@@ -46,6 +46,8 @@ ADD_CUSTOM_TARGET(
     COMMAND ${CMAKE_COMMAND} -E make_directory ${SPARROW_LIBRARIES}
 )
 
+SET(THIRDPARTY_INCLUDES ${CMAKE_SOURCE_DIR}/thirdparty/include)
+
 MACRO(set_library_name name)
     set_static_library_name(LIB_${name}_FILE ${name})
     SET(LIB_${name}_FILENAME  ${SPARROW_LIBRARIES}/${LIB_${name}_FILE})
